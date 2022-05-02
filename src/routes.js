@@ -14,12 +14,14 @@ const routes = {
         const alerts = utils.parseAlerts(req.body)
 
         if (!alerts) {
+            console.warn("received request with no alerts in payload")
             res.json({'result': 'no alerts found in payload'})
             return
         }
 
         const roomId = utils.getRoomForReceiver(req.body.receiver)
         if (!roomId) {
+            console.warn(`received request for unconfigured receiver ${req.body.receiver}`)
             res.json({'result': 'no rooms configured for this receiver'})
             return
         }

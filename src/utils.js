@@ -23,7 +23,7 @@ const utils = {
         Format a single alert into a message string.
          */
         let parts = []
-        //console.log(data)
+        console.log(data)
 
         if (data.status === 'firing') {
             if (process.env.MENTION_ROOM === "1") {
@@ -31,12 +31,14 @@ const utils = {
             }
             let color = (function(severity) {
                 switch(severity) {
+                  case 'critical':
+                    return '#dc3545'; // red
                   case 'warning':
                     return '#ffc107'; // orange
-                  case 'none':
+                  case 'info':
                     return '#17a2b8'; // blue
                   default:
-                    return '#dc3545'; // red
+                    return '#999999'; // grey
                 }
               })(data.labels.severity);
             parts.push('<strong><font color=\"' + color + '\">FIRING:</font></strong>')
