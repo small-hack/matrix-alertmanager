@@ -47,12 +47,14 @@ const utils = {
             parts.push(data.status.toUpperCase() + ':')
         }
 
+        parts.push('<br>');
+
         Object.keys(data.labels).forEach((label) => {
-            parts.push('<b>' + label + '</b>: ' + data.labels[label])
+            parts.push('<b>' + label + '</b>: ' + data.labels[label] + '<br>')
         });
 
         Object.keys(data.annotations).forEach((annotation) => {
-            parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation])
+            parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>')
         })
 
         parts.push('<br><a href="', externalURL + data.generatorURL,'">Alert link</a>')
