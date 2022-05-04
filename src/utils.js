@@ -24,6 +24,12 @@ const utils = {
          */
         let parts = []
 
+
+        let summary = ""
+        if(data.annotations.hasOwnProperty("summary")) {
+            summary = data.annotations.summary;
+        }
+
         if (data.status === 'firing') {
             if (process.env.MENTION_ROOM === "1") {
                 parts.push('@room', '<br>')
@@ -40,24 +46,28 @@ const utils = {
                     return '#999999'; // grey
                 }
               })(data.labels.severity);
-            parts.push('<strong><font color=\"' + color + '\">FIRING:</font></strong>')
+            parts.push('<strong><font color=\"' + color + '\">FIRING: ' + summary + '</font></strong>')
         } else if (data.status === 'resolved') {
-            parts.push('<strong><font color=\"#33cc33\">RESOLVED:</font></strong>')
+            parts.push('<strong><font color=\"#33cc33\">RESOLVED: ' + summary + '</font></strong>')
         } else {
-            parts.push(data.status.toUpperCase() + ':')
+            parts.push(data.status.toUpperCase() + ': ' + summary)
         }
 
-        parts.push('<br>');
+        parts.push('<br />\n')
 
         Object.keys(data.labels).forEach((label) => {
-            parts.push('<b>' + label + '</b>: ' + data.labels[label] + '<br>')
+            parts.push('<b>' + label + '</b>: ' + data.labels[label] + '<br>\n')
         });
 
-        Object.keys(data.annotations).forEach((annotation) => {
-            parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>')
-        })
+        parts.push('<br />\n')
 
-        parts.push('<br><a href="', externalURL + data.generatorURL,'">Alert link</a>')
+        Object.keys(data.annotations).forEach((annotation) => {
+            if(annotation != "summary") {
+                parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>\n')
+            }
+        })
+        parts.push('<br />\n')
+        parts.push('<a href="', externalURL + data.generatorURL,'">Alert link</a>')
 
         return parts.join(' ')
     },
