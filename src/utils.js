@@ -23,7 +23,6 @@ const utils = {
         Format a single alert into a message string.
          */
         let parts = []
-        console.log(data)
 
         if (data.status === 'firing') {
             if (process.env.MENTION_ROOM === "1") {
@@ -80,6 +79,8 @@ const utils = {
         if (!data.alerts) {
             return []
         }
+
+        console.log(data)
 
         let alerts = []
 
