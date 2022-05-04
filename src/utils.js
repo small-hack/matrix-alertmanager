@@ -18,7 +18,7 @@ const utils = {
         return roomId
     },
 
-    formatAlert: data => {
+    formatAlert: (data, externalURL) => {
         /*
         Format a single alert into a message string.
          */
@@ -47,27 +47,15 @@ const utils = {
             parts.push(data.status.toUpperCase() + ':')
         }
 
-        // name and location of occurrence
-        if (data.labels.alertname !== undefined) {
-            parts.push('<i>', data.labels.alertname, '</i>')
-            if (data.labels.host !== undefined || data.labels.instance !== undefined) {
-                parts.push(' at ')
-            }
-        }
-        if (data.labels.host !== undefined) {
-            parts.push(data.labels.host)
-        } else if (data.labels.instance !== undefined) {
-            parts.push(data.labels.instance)
-        }
+        Object.keys(data.labels).forEach((label) => {
+            parts.push('<b>' + label + '</b>: ' + data.labels[label])
+        });
 
-        // additional descriptive content
-        if (data.annotations.message !== undefined) {
-            parts.push('<br>', data.annotations.message.replace("\n", "<br>"))
-        }
-        if (data.annotations.description !== undefined) {
-            parts.push('<br>', data.annotations.description)
-        }
-        parts.push('<br><a href="', data.generatorURL,'">Alert link</a>')
+        Object.keys(data.annotations).forEach((annotation) => {
+            parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation])
+        })
+
+        parts.push('<br><a href="', externalURL + data.generatorURL,'">Alert link</a>')
 
         return parts.join(' ')
     },
@@ -85,7 +73,7 @@ const utils = {
         let alerts = []
 
         data.alerts.forEach(alert => {
-            alerts.push(utils.formatAlert(alert))
+            alerts.push(utils.formatAlert(alert, data.externalURL))
         })
         return alerts
     },
