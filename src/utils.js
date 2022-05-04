@@ -70,7 +70,7 @@ const utils = {
             return []
         }
 
-        console.log(data)
+        console.log(JSON.stringify(data))
 
         let alerts = []
 
