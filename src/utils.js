@@ -28,6 +28,8 @@ const utils = {
         let summary = ""
         if(data.annotations.hasOwnProperty("summary")) {
             summary = data.annotations.summary;
+        } else if(data.labels.hasOwnProperty("alertname")) {
+            summary = alertname;
         }
 
         if (data.status === 'firing') {
