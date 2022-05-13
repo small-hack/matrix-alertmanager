@@ -24,7 +24,6 @@ const utils = {
          */
         let parts = []
 
-
         let summary = ""
         if(data.annotations.hasOwnProperty("summary")) {
             summary = data.annotations.summary;
@@ -32,11 +31,12 @@ const utils = {
             summary = alertname;
         }
 
+        parts.push('<details>')
+
         if (data.status === 'firing') {
             if (process.env.MENTION_ROOM === "1") {
                 parts.push('@room', '<br>')
             }
-            parts.push('<details>')
             let color = (function(severity) {
                 switch(severity) {
                   case 'critical':
