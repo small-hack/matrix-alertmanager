@@ -34,6 +34,7 @@ const utils = {
             if (process.env.MENTION_ROOM === "1") {
                 parts.push('@room', '<br>')
             }
+            parts.push('<details>')
             let color = (function(severity) {
                 switch(severity) {
                   case 'critical':
@@ -46,11 +47,11 @@ const utils = {
                     return '#999999'; // grey
                 }
               })(data.labels.severity);
-            parts.push('<strong><font color=\"' + color + '\">FIRING: ' + summary + '</font></strong>')
+            parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + '</font></strong></summary>')
         } else if (data.status === 'resolved') {
-            parts.push('<strong><font color=\"#33cc33\">RESOLVED: ' + summary + '</font></strong>')
+            parts.push('<summary><strong><font color=\"#33cc33\">RESOLVED: ' + summary + '</font></strong></summary>')
         } else {
-            parts.push(data.status.toUpperCase() + ': ' + summary)
+            parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + '</summary>')
         }
 
         parts.push('<br />\n')
@@ -66,6 +67,7 @@ const utils = {
                 parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>\n')
             }
         })
+        parts.push('</details>')
         parts.push('<br />\n')
         parts.push('<a href="', externalURL + data.generatorURL,'">Alert link</a>')
 
