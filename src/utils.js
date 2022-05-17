@@ -28,7 +28,7 @@ const utils = {
         if(data.annotations.hasOwnProperty("summary")) {
             summary = data.annotations.summary;
         } else if(data.labels.hasOwnProperty("alertname")) {
-            summary = alertname;
+            summary = data.labels.alertname;
         }
 
         parts.push('<details>')
