@@ -25,9 +25,9 @@ const utils = {
         let parts = []
 
         let summary = ""
-        if(data.annotations.hasOwnProperty("summary")) {
+        if (data.annotations.hasOwnProperty("summary")) {
             summary = data.annotations.summary;
-        } else if(data.labels.hasOwnProperty("alertname")) {
+        } else if (data.labels.hasOwnProperty("alertname")) {
             summary = data.labels.alertname;
         }
 
@@ -37,18 +37,18 @@ const utils = {
             if (process.env.MENTION_ROOM === "1") {
                 parts.push('@room', '<br>')
             }
-            let color = (function(severity) {
-                switch(severity) {
-                  case 'critical':
-                    return '#dc3545'; // red
-                  case 'warning':
-                    return '#ffc107'; // orange
-                  case 'info':
-                    return '#17a2b8'; // blue
-                  default:
-                    return '#999999'; // grey
+            let color = (function (severity) {
+                switch (severity) {
+                    case 'critical':
+                        return '#dc3545'; // red
+                    case 'warning':
+                        return '#ffc107'; // orange
+                    case 'info':
+                        return '#17a2b8'; // blue
+                    default:
+                        return '#999999'; // grey
                 }
-              })(data.labels.severity);
+            })(data.labels.severity);
             parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + '</font></strong></summary>')
         } else if (data.status === 'resolved') {
             parts.push('<summary><strong><font color=\"#33cc33\">RESOLVED: ' + summary + '</font></strong></summary>')
@@ -65,13 +65,29 @@ const utils = {
         parts.push('<br />\n')
 
         Object.keys(data.annotations).forEach((annotation) => {
-            if(annotation != "summary") {
+            if (annotation != "summary") {
                 parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>\n')
             }
         })
         parts.push('</details>')
         parts.push('<br />\n')
-        parts.push('<a href="', externalURL + data.generatorURL,'">Alert link</a>')
+
+        // link generation code
+        let url = externalURL + data.generatorURL;
+        if (process.env.GRAFANA_URL != "") {
+            const left = {
+                "datasource": data.labels.grafana_ds || process.env.GRAFANA_DATASOURCE,
+                "queries": [
+                    {
+                        "refId": "A",
+                        "expr": new URL(data.generatorURL).searchParams.get('g0.expr'),
+                    }
+                ],
+                "range": { "from": "now-1h", "to": "now" }
+            };
+            url = process.env.GRAFANA_URL + "/explore?orgId=1&left=" + encodeURIComponent(JSON.stringify(left))
+        }
+        parts.push('<a href="', url, '">Alert link</a>')
 
         return parts.join(' ')
     },
