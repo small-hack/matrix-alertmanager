@@ -80,7 +80,7 @@ const utils = {
                 "queries": [
                     {
                         "refId": "A",
-                        "expr": new URL(data.generatorURL).searchParams.get('g0.expr'),
+                        "expr": new URL(url).searchParams.get('g0.expr'),
                     }
                 ],
                 "range": { "from": "now-1h", "to": "now" }
