@@ -89,8 +89,8 @@ const utils = {
         }
         parts.push('<a href="', url, '">Alert link</a>')
 
-        if(data.labels.hasOwnProperty("runbook_url")) {
-            parts.push('| <a href="', data.labels.runbook_url, '">Runbook</a>')
+        if(data.annotations.hasOwnProperty("runbook_url")) {
+            parts.push('| <a href="', data.annotations.runbook_url, '">Runbook</a>')
         }
 
         return parts.join(' ')
