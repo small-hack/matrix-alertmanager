@@ -49,11 +49,12 @@ const utils = {
                         return '#999999'; // grey
                 }
             })(data.labels.severity);
-            parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + '</font></strong></summary>')
+            let env = data.labels.env ? " (" + data.labels.env + ")" : ""
+            parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + env + '</font></strong></summary>')
         } else if (data.status === 'resolved') {
-            parts.push('<summary><strong><font color=\"#33cc33\">RESOLVED: ' + summary + '</font></strong></summary>')
+            parts.push('<summary><strong><font color=\"#33cc33\">RESOLVED: ' + summary + env + '</font></strong></summary>')
         } else {
-            parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + '</summary>')
+            parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + env + '</summary>')
         }
 
         parts.push('<br />\n')
