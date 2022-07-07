@@ -33,6 +33,8 @@ const utils = {
 
         parts.push('<details>')
 
+        let env = data.labels.env ? " (" + data.labels.env + ")" : ""
+
         if (data.status === 'firing') {
             if (process.env.MENTION_ROOM === "1") {
                 parts.push('@room', '<br>')
@@ -49,7 +51,6 @@ const utils = {
                         return '#999999'; // grey
                 }
             })(data.labels.severity);
-            let env = data.labels.env ? " (" + data.labels.env + ")" : ""
             parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + env + '</font></strong></summary>')
         } else if (data.status === 'resolved') {
             parts.push('<summary><strong><font color=\"#33cc33\">RESOLVED: ' + summary + env + '</font></strong></summary>')
