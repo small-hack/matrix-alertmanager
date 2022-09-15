@@ -78,7 +78,7 @@ const utils = {
         let url = externalURL + data.generatorURL;
         if (process.env.GRAFANA_URL != "") {
             const left = {
-                "datasource": data.labels.grafana_ds || process.env.GRAFANA_DATASOURCE,
+                "datasource": process.env.GRAFANA_DATASOURCE,
                 "queries": [
                     {
                         "refId": "A",
