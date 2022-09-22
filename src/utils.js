@@ -89,7 +89,7 @@ const utils = {
             };
             url = process.env.GRAFANA_URL + "/explore?orgId=1&left=" + encodeURIComponent(JSON.stringify(left))
         }
-        parts.push('<a href="', url, '">Alert link</a>')
+        parts.push('<a href="', url, '">📈 Alert link</a>')
 
         if (process.env.ALERTMANAGER_URL != "") {
             let filter = [];
@@ -97,11 +97,11 @@ const utils = {
                 filter.push(label + "=\"" + data.labels[label] + "\"");
             })
             let silenceUrl = process.env.ALERTMANAGER_URL + "/#/silences/new?filter={" + encodeURIComponent(filter.join(',')) + "}";
-            parts.push('| <a href="' + silenceUrl + '">Silence</a>')
+            parts.push('| <a href="' + silenceUrl + '">🔇 Silence</a>')
         }
 
         if(data.annotations.hasOwnProperty("runbook_url")) {
-            parts.push('| <a href="', data.annotations.runbook_url, '">Runbook</a>')
+            parts.push('| <a href="', data.annotations.runbook_url, '">🏃 Runbook</a>')
         }
 
         return parts.join(' ')
