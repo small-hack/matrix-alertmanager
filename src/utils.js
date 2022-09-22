@@ -92,8 +92,12 @@ const utils = {
         parts.push('<a href="', url, '">Alert link</a>')
 
         if (process.env.ALERTMANAGER_URL != "") {
-            silenceUrl = process.env.ALERTMANAGER_URL + "/#/silences/new?filter=" + encodeURIComponent(JSON.stringify(data.labels));
-            parts.push('|  <a href="' + silenceUrl + '">Silence</a>')
+            let filter = [];
+            Object.keys(data.labels).forEach((label) => {
+                filter.push(label + "=\"" + data.labels[label] + "\"");
+            })
+            let silenceUrl = process.env.ALERTMANAGER_URL + "/#/silences/new?filter={" + encodeURIComponent(filter.join(',')) + "}";
+            parts.push('| <a href="' + silenceUrl + '">Silence</a>')
         }
 
         if(data.annotations.hasOwnProperty("runbook_url")) {
