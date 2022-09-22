@@ -91,6 +91,11 @@ const utils = {
         }
         parts.push('<a href="', url, '">Alert link</a>')
 
+        if (process.env.ALERTMANAGER_URL != "") {
+            silenceUrl = process.env.ALERTMANAGER_URL + "/#/silences/new?filter=" + encodeURIComponent(JSON.stringify(data.labels));
+            parts.push('|  <a href="' + silenceUrl + '">Silence</a>')
+        }
+
         if(data.annotations.hasOwnProperty("runbook_url")) {
             parts.push('| <a href="', data.annotations.runbook_url, '">Runbook</a>')
         }
