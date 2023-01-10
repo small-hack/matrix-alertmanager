@@ -42,6 +42,6 @@ jobs:
           username: ${{ secrets.CI_REGISTRY_USER }}
           password: ${{ secrets.CI_REGISTRY_PASSWORD }}
 
-      - uses: beeper/docker-retag-push-latest@main
+      - uses: beeper/docker-retag-push-latest@master
         with:
           image: ${{ env.CI_REGISTRY_IMAGE }}
