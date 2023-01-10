@@ -104,6 +104,10 @@ const utils = {
             parts.push('| <a href="', data.annotations.runbook_url, '">🏃 Runbook</a>')
         }
 
+        if(data.annotations.hasOwnProperty("logs_url")) {
+            parts.push('| <a href="', data.annotations.logs_url, '">🗒️ Logs</a>')
+        }
+
         return parts.join(' ')
     },
 
