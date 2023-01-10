@@ -91,6 +91,31 @@ const utils = {
         }
         parts.push('<a href="', url, '">📈 Alert link</a>')
 
+        let logs_url;
+        if (!!process.env.GRAFANA_URL &&
+            !!process.env.GRAFANA_LOKI_DATASOURCE &&
+            data.labels.hasOwnProperty("env") &&
+            data.labels.hasOwnProperty("cluster_id") &&
+            data.labels.hasOwnProperty("namespace") &&
+            data.labels.hasOwnProperty("pod")) {
+
+            const left = {
+                "datasource": process.env.GRAFANA_LOKI_DATASOURCE,
+                "queries": [
+                    {
+                        "refId": "A",
+                        "expr": `{env="${data.labels.env}",cluster_id="${data.labels.cluster_id}",namespace="${data.labels.namespace}",pod="${data.labels.pod}"}`,
+                    }
+                ],
+                "range": { "from": "now-15m", "to": "now" }
+            };
+            logs_url = process.env.GRAFANA_URL + "/explore?orgId=1&left=" + encodeURIComponent(JSON.stringify(left))
+        }
+
+        if(data.annotations.hasOwnProperty("logs_url")) {
+            logs_url = data.annotations.logs_url;
+        }
+
         if (process.env.ALERTMANAGER_URL != "") {
             let filter = [];
             Object.keys(data.labels).forEach((label) => {
@@ -104,8 +129,8 @@ const utils = {
             parts.push('| <a href="', data.annotations.runbook_url, '">🏃 Runbook</a>')
         }
 
-        if(data.annotations.hasOwnProperty("logs_url")) {
-            parts.push('| <a href="', data.annotations.logs_url, '">🗒️ Logs</a>')
+        if(logs_url) {
+            parts.push('| <a href="', logs_url, '">🗒️ Logs</a>')
         }
 
         return parts.join(' ')
