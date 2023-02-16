@@ -42,18 +42,20 @@ const utils = {
             let color = (function (severity) {
                 switch (severity) {
                     case 'critical':
-                        return '#dc3545'; // red
+                        return '#E41227'; // red
+                    case 'error':
+                        return '#FF4507'; // orange
                     case 'warning':
-                        return '#ffc107'; // orange
+                        return '#FFE608'; // yellow
                     case 'info':
-                        return '#17a2b8'; // blue
+                        return '#1661B8'; // blue
                     default:
                         return '#999999'; // grey
                 }
             })(data.labels.severity);
             parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + env + '</font></strong></summary>')
         } else if (data.status === 'resolved') {
-            parts.push('<summary><strong><font color=\"#33cc33\">RESOLVED: ' + summary + env + '</font></strong></summary>')
+            parts.push('<summary><strong><font color=\"#33CC33\">RESOLVED: ' + summary + env + '</font></strong></summary>')
         } else {
             parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + env + '</summary>')
         }
