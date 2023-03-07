@@ -116,14 +116,15 @@ const utils = {
             } else if (data.labels.hasOwnProperty("env") &&
                 data.labels.hasOwnProperty("cluster_id") &&
                 data.labels.hasOwnProperty("nodename") &&
-                data.labels.hasOwnProperty("exported_job")) {
+                data.labels.hasOwnProperty("exported_job") &&
+                data.labels.hasOwnProperty("level")) {
 
                 left = {
                     "datasource": process.env.GRAFANA_LOKI_DATASOURCE,
                     "queries": [
                         {
                             "refId": "A",
-                            "expr": `{env="${data.labels.env}",cluster_id="${data.labels.cluster_id}",nodename="${data.labels.nodename}",exported_job="${data.labels.exported_job}"}`,
+                            "expr": `{env="${data.labels.env}",cluster_id="${data.labels.cluster_id}",nodename="${data.labels.nodename}",job="${data.labels.exported_job}",level="${data.labels.level}"}`,
                         }
                     ],
                     "range": { "from": "now-15m", "to": "now" }
