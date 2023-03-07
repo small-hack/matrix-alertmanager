@@ -95,23 +95,44 @@ const utils = {
 
         let logs_url;
         if (!!process.env.GRAFANA_URL &&
-            !!process.env.GRAFANA_LOKI_DATASOURCE &&
-            data.labels.hasOwnProperty("env") &&
-            data.labels.hasOwnProperty("cluster_id") &&
-            data.labels.hasOwnProperty("namespace") &&
-            data.labels.hasOwnProperty("pod")) {
+            !!process.env.GRAFANA_LOKI_DATASOURCE) {
 
-            const left = {
-                "datasource": process.env.GRAFANA_LOKI_DATASOURCE,
-                "queries": [
-                    {
-                        "refId": "A",
-                        "expr": `{env="${data.labels.env}",cluster_id="${data.labels.cluster_id}",namespace="${data.labels.namespace}",pod="${data.labels.pod}"}`,
-                    }
-                ],
-                "range": { "from": "now-15m", "to": "now" }
-            };
-            logs_url = process.env.GRAFANA_URL + "/explore?orgId=1&left=" + encodeURIComponent(JSON.stringify(left))
+            let left;
+            if (data.labels.hasOwnProperty("env") &&
+                data.labels.hasOwnProperty("cluster_id") &&
+                data.labels.hasOwnProperty("namespace") &&
+                data.labels.hasOwnProperty("pod")) {
+
+                left = {
+                    "datasource": process.env.GRAFANA_LOKI_DATASOURCE,
+                    "queries": [
+                        {
+                            "refId": "A",
+                            "expr": `{env="${data.labels.env}",cluster_id="${data.labels.cluster_id}",namespace="${data.labels.namespace}",pod="${data.labels.pod}"}`,
+                        }
+                    ],
+                    "range": { "from": "now-15m", "to": "now" }
+                };
+            } else if (data.labels.hasOwnProperty("env") &&
+                data.labels.hasOwnProperty("cluster_id") &&
+                data.labels.hasOwnProperty("nodename") &&
+                data.labels.hasOwnProperty("exported_job")) {
+
+                left = {
+                    "datasource": process.env.GRAFANA_LOKI_DATASOURCE,
+                    "queries": [
+                        {
+                            "refId": "A",
+                            "expr": `{env="${data.labels.env}",cluster_id="${data.labels.cluster_id}",nodename="${data.labels.nodename}",exported_job="${data.labels.exported_job}"}`,
+                        }
+                    ],
+                    "range": { "from": "now-15m", "to": "now" }
+                };
+            }
+
+            if (!!left) {
+                logs_url = process.env.GRAFANA_URL + "/explore?orgId=1&left=" + encodeURIComponent(JSON.stringify(left))
+            }
         }
 
         if(data.annotations.hasOwnProperty("logs_url")) {
