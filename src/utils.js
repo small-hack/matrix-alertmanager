@@ -69,7 +69,7 @@ const utils = {
         parts.push('<br />\n')
 
         Object.keys(data.annotations).forEach((annotation) => {
-            if (annotation != "summary") {
+            if (annotation != "summary" && !annotation.startsWith("logs_")) {
                 parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>\n')
             }
         })
@@ -138,6 +138,25 @@ const utils = {
 
         if(data.annotations.hasOwnProperty("logs_url")) {
             logs_url = data.annotations.logs_url;
+        } else if (data.annotations.hasOwnProperty("logs_template")) {
+            const now = new Date().getTime();
+            const range_ms = (parseInt(data.annotations.logs_minutes) || 15) * 60 * 1000;
+
+            const left = {
+                "datasource": data.annotations.logs_datasource || "Loki Core",
+                "queries": [{
+                    "refId": "A",
+                    "expr": data.annotations.logs_template.replace(/\$([a-z0-9_]+)/g, function(_, label) {
+                        return data.labels[label] || "";
+                    }),
+                }],
+                "range": {
+                    "from": (now - range_ms) + "",
+                    "to": now + "",
+                },
+            };
+
+            logs_url = process.env.GRAFANA_URL + "/explore?orgId=1&left=" + encodeURIComponent(JSON.stringify(left));
         }
 
         if (process.env.ALERTMANAGER_URL != "") {
