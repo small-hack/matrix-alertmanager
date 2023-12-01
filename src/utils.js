@@ -169,7 +169,11 @@ const utils = {
         }
 
         if(data.annotations.hasOwnProperty("dashboard_url")) {
-            parts.push('| <a href="', data.annotations.dashboard_url, '">🚦 Dashboard</a>')
+            let url = data.annotations.dashboard_url.replace(/\$([a-z0-9_]+)/g, function(_, label) {
+                return data.labels[label] || "";
+            });
+
+            parts.push('| <a href="', url, '">🚦 Dashboard</a>');
         }
 
         if(data.annotations.hasOwnProperty("runbook_url")) {
