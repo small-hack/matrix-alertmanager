@@ -168,6 +168,10 @@ const utils = {
             parts.push('| <a href="' + silenceUrl + '">🔇 Silence</a>')
         }
 
+        if(data.annotations.hasOwnProperty("dashboard_url")) {
+            parts.push('| <a href="', data.annotations.dashboard_url, '">🚦 Dashboard</a>')
+        }
+
         if(data.annotations.hasOwnProperty("runbook_url")) {
             parts.push('| <a href="', data.annotations.runbook_url, '">🏃 Runbook</a>')
         }
