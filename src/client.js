@@ -1,4 +1,4 @@
-const matrix = require('matrix-js-sdk')
+const sdk = require("matrix-js-sdk");
 const striptags = require('striptags')
 
 let joinedRoomsCache = []
@@ -18,7 +18,7 @@ const client = {
     },
     init: async function() {
         // Init Matrix client
-        this.connection = matrix.createClient({
+        this.connection = sdk.createClient({
             baseUrl: process.env.MATRIX_HOMESERVER_URL,
             accessToken: process.env.MATRIX_TOKEN,
             userId: process.env.MATRIX_USER,

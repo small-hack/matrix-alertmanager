@@ -8,9 +8,11 @@ require('dotenv').config()
 // App
 const app = express()
 app.use(express.json({ limit: 1048576 })) // 1MiB
+
 // Routes
 app.get('/', routes.getRoot)
 app.post('/alerts', routes.postAlerts)
+
 // Initialize Matrix client
 client.init().then(() => {
     // eslint-disable-next-line no-console
