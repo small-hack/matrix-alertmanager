@@ -19,15 +19,14 @@ Main features:
 
 ### Configuration
 
-Whether running manually or via the Docker image, the configuration is set 
+Whether running manually or via the Docker image, the configuration is set
 via environment variables. When running manually, copy `.env.default`
-into `.env`, set the values and they will be loaded automatically. 
-When using the Docker image, set the environment variables when running 
+into `.env`, set the values and they will be loaded automatically.
+When using the Docker image, set the environment variables when running
 the container.
 
 ### Docker
 
-The [Docker image](https://cloud.docker.com/repository/docker/jaywink/matrix-alertmanager) `jaywink/matrix-alertmanager:latest` is the easiest way to get the service running. Ensure you set the required environment variables listed in `.env.default` in this repository.
 
 ### Alertmanager
 
@@ -68,13 +67,10 @@ NOTE! Currently the bot cannot talk HTTPS, so you need to have a reverse proxy i
 
 Node 14, Express, Matrix JS SDK
 
-## Help
+## Status
+This project was originally created by [Jason Robinson](https://jasonrobinson.me) / @jaywink:federator.dev
 
-Come chat in the https://matrix.to/#/#matrix-alertmanager:federator.dev room!
-
-## Author
-
-Jason Robinson / https://jasonrobinson.me / @jaywink:federator.dev
+It is now maintained by [small-hack](https://github.com/small-hack) and [@jessebot](https://github.com/jessebot).
 
 ## License
 
