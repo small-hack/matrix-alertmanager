@@ -22,10 +22,13 @@ Main features:
 Whether running manually or via the Docker image, the configuration is set
 via environment variables. When running manually, copy `.env.default`
 into `.env`, set the values and they will be loaded automatically.
+
 When using the Docker image, set the environment variables when running
 the container.
 
 ### Docker
+
+Still working on this, but when available, it will be here: https://hub.docker.com/r/jessebot/matrix-alertmanager-bot
 
 
 ### Alertmanager
@@ -73,7 +76,7 @@ NOTE! Currently the bot cannot talk HTTPS, so you need to have a reverse proxy i
 
 This project was originally created by [Jason Robinson](https://jasonrobinson.me) / @jaywink:federator.dev
 
-It is now maintained by [small-hack](https://github.com/small-hack) and [@jessebot](https://github.com/jessebot).
+It is now maintained by [small-hack](https://github.com/small-hack) and [@jessebot](https://github.com/jessebot). We're actively cleaning up the security alerts and adding renovatebot to keep it all up to date.
 
 ## License
 
