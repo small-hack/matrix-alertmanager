@@ -28,8 +28,10 @@ const routes = {
 
         try {
             const promises = alerts.map(alert => client.sendAlert(roomId, alert))
+            console.info(`received request for receiver ${req.body.receiver}`)
             await Promise.all(promises)
             res.json({'result': 'ok'})
+            console.info(`result: ok`)
         } catch (e) {
             // eslint-disable-next-line no-console
             console.error(e)
