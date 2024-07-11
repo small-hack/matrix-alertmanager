@@ -1,10 +1,10 @@
-[![](https://img.shields.io/docker/pulls/jaywink/matrix-alertmanager.svg)](https://cloud.docker.com/u/jaywink/repository/docker/jaywink/matrix-alertmanager) [![](https://img.shields.io/matrix/matrix-alertmanager:federator.dev.svg?server_fqdn=federator.dev)](https://matrix.to/#/#matrix-alertmanager:federator.dev)
+[![](https://img.shields.io/docker/pulls/jessebot/matrix-alertmanager-bot.svg)](https://cloud.docker.com/u/jessebot/repository/docker/jessebot/matrix-alertmanager-bot)
 
 # Matrix-Alertmanager
 
 ![](./screenshot.png)
 
-A bot to receive Prometheus Alertmanager webhook events and forward them to chosen rooms.
+A bot to receive Prometheus Alertmanager webhook events and forward them to chosen matrix rooms.
 
 Main features:
 
@@ -65,13 +65,16 @@ NOTE! Currently the bot cannot talk HTTPS, so you need to have a reverse proxy i
 
 ## Tech
 
-Node 14, Express, Matrix JS SDK
+- Node 22
+- Express
+- Matrix JS SDK
 
 ## Status
+
 This project was originally created by [Jason Robinson](https://jasonrobinson.me) / @jaywink:federator.dev
 
 It is now maintained by [small-hack](https://github.com/small-hack) and [@jessebot](https://github.com/jessebot).
 
 ## License
 
-MIT
+[MIT](./LICENSE)
