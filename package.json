@@ -5,6 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "build": "yarn build",
+    "dev": "node_modules/.bin/nodemon src/app.js localhost 3000",
+    "test": "node_modules/.bin/mocha tests/",
     "start": "node src/app.js"
   },
   "repository": {
