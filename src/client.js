@@ -35,6 +35,11 @@ const client = {
                 await this.ensureInRoom(room[1])
             }
         })
+
+        // ensure avatar is updated
+        if (process.env.MATRIX_AVATAR_URL) {
+            const profile = this.connection.setAvatarUrl(process.env.MATRIX_AVATAR_URL);
+        }
     },
     sendAlert: async function(roomId, alert) {
         await this.ensureInRoom(roomId)

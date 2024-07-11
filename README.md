@@ -13,32 +13,23 @@ A bot to receive Prometheus Alertmanager webhook events and forward them to chos
 
 </details>
 
-Main features:
+### Main features
 
-* Uses pre-created Matrix user to send alerts using token auth.
-* Configurable room per alert receiver.
-* Automatic joining of configured rooms. Private rooms require an invite.
-* Secret key authentication with Alertmanager.
-* HTML formatted messages.
+* Uses pre-created Matrix user to send alerts using token auth
+  * you can also use an appserver to register a new user
+* Configurable room per alert receiver
+* Automatic joining of configured rooms. Private rooms require an invite
+* Secret key authentication with Alertmanager
+* HTML formatted messages
 * Optionally mentions `@room` on firing alerts
 
-## How to use
+# How to use
 
-### Configuration
+## Running the bot in a Docker container
 
-Whether running manually or via the Docker image, the configuration is set
-via environment variables. When running manually, copy `.env.default`
-into `.env`, set the values and they will be loaded automatically.
+We host a docker image that builds nightly here: [jessebot/matrix-alertmanager-bot](https://hub.docker.com/repository/docker/jessebot/matrix-alertmanager-bot). Checkout out [`.env.default`](./.env.default) for the possible env vars to pass in.
 
-When using the Docker image, set the environment variables when running
-the container.
-
-### Docker
-
-Still working on this, but when available, it will be here: https://hub.docker.com/r/jessebot/matrix-alertmanager-bot
-
-
-### Alertmanager
+## Setting up Alertmanager
 
 You will need to configure a webhook receiver in Alertmanager. It should looks something like this:
 
@@ -51,7 +42,7 @@ receivers:
 
 The secret key obviously should match the one in the alertmanager configuration.
 
-### Prometheus rules
+## Styling Prometheus rules
 
 Add some styling to your prometheus rules
 
@@ -69,6 +60,10 @@ rules:
 
 NOTE! Currently the bot cannot talk HTTPS, so you need to have a reverse proxy in place to terminate SSL, or use unsecure unencrypted connections.
 
+## Running in Kubernetes
+
+[small-hack/matrix-chart](https://github.com/small-hack/matrix-chart) is a matrix stack for Kubernetes that includes this bot.
+
 ## TODO
 
 * Registering an account instead of having to use an existing account
@@ -79,11 +74,11 @@ NOTE! Currently the bot cannot talk HTTPS, so you need to have a reverse proxy i
 - Express
 - Matrix JS SDK
 
-## Status
+## Authors and Maintainers
 
-This project was originally created by [Jason Robinson](https://jasonrobinson.me) / @jaywink:federator.dev
+This project was originally created by [Jason Robinson](https://jasonrobinson.me) and then it was forked by [beeper/matrix-alertmanager] but they didn't add their own copyright notice, and then I, [@jessebot](https://github.com/jessebot), from [@small-hack](https://github.com/small-hack) forked it as well.
 
-It is now maintained by [small-hack](https://github.com/small-hack) and [@jessebot](https://github.com/jessebot). We're actively cleaning up the security alerts and adding renovatebot to keep it all up to date.
+I've started cleaning up the security alerts and adding plan on renovatebot to keep it all up to date. I'll try to also create some PRs to update the other codebases as well :)
 
 ## License
 
