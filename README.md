@@ -1,4 +1,4 @@
-[![](https://img.shields.io/docker/pulls/jessebot/matrix-alertmanager-bot.svg)](https://cloud.docker.com/u/jessebot/repository/docker/jessebot/matrix-alertmanager-bot)
+<a href="https://github.com/small-hack/matrix-alertmanager/releases"><img src="https://img.shields.io/github/v/release/small-hack/matrix-alertmanager?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a><br /> [![](https://img.shields.io/docker/pulls/jessebot/matrix-alertmanager-bot.svg)](https://cloud.docker.com/u/jessebot/repository/docker/jessebot/matrix-alertmanager-bot)
 
 # Matrix-Alertmanager
 
