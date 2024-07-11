@@ -2,9 +2,16 @@
 
 # Matrix-Alertmanager
 
-![](./screenshot.png)
-
 A bot to receive Prometheus Alertmanager webhook events and forward them to chosen matrix rooms.
+
+<img width="705" alt="Screenshot of matrix markdown formatted alertmanager bot with collapsed short description of alert" src="https://github.com/small-hack/matrix-alertmanager/assets/2389292/1ce99573-5115-4f57-bbcd-3378fd55dd1d">
+
+<details>
+  <summary>Click me to see what the alerts look like when they're not collapsed</summary>
+
+<img width="701" alt="Screenshot of matrix markdown formatted alertmanager bot with expanded info on each alert" src="https://github.com/small-hack/matrix-alertmanager/assets/2389292/d1544193-e86b-4971-a1d2-809eb227a1b4">
+
+</details>
 
 Main features:
 
