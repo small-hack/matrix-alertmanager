@@ -1,9 +1,10 @@
 {
   "name": "matrix-alertmanager",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Prometheus Alertmanager bot for Matrix",
   "main": "src/app.js",
   "scripts": {
+    "build": "yarn build",
     "dev": "node_modules/.bin/nodemon src/app.js localhost 3000",
     "test": "node_modules/.bin/mocha tests/",
     "start": "node src/app.js"
@@ -34,7 +35,7 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "matrix-js-sdk": "^34.0.0",
+    "matrix-js-sdk": "^32.0.0",
     "striptags": "^3.2.0"
   }
 }
