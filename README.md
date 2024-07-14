@@ -210,7 +210,7 @@ bridges:
 
 ## Authors and Maintainers
 
-This project was originally created by [Jason Robinson](https://jasonrobinson.me) and then it was forked by [beeper/matrix-alertmanager] but they didn't add their own copyright notice, and then I, [@jessebot](https://github.com/jessebot), from [@small-hack](https://github.com/small-hack) forked it as well.
+This project was originally created by [Jason Robinson](https://jasonrobinson.me) and then it was forked by [beeper/matrix-alertmanager](https://github.com/beeper/matrix-alertmanager) but they didn't add their own copyright notice, and then I, [@jessebot](https://github.com/jessebot), from [@small-hack](https://github.com/small-hack) forked it as well.
 
 I've started cleaning up the security alerts and adding plan on renovatebot to keep it all up to date. I'll try to also create some PRs to update the other codebases as well :)
 
