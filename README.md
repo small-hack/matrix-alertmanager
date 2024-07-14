@@ -28,7 +28,7 @@ A bot to receive Prometheus Alertmanager webhook events and forward them to chos
 
 ## Running the bot in a Docker container
 
-We host a docker image that builds nightly here: [jessebot/matrix-alertmanager-bot](https://hub.docker.com/repository/docker/jessebot/matrix-alertmanager-bot). Checkout out [`.env.default`](./.env.default) for the possible env vars to pass in.
+We host a docker image that builds nightly here: [jessebot/matrix-alertmanager-bot](https://hub.docker.com/repository/docker/jessebot/matrix-alertmanager-bot). Nightly builds are tagged with `main`. Checkout out [`.env.default`](./.env.default) for the possible env vars to pass in.
 
 ## Registering the Application Service with matrix
 Matrix has a concept of [application services](https://spec.matrix.org/v1.11/application-service-api/) (often called an appservice), for bot services/users. To register this bot as an application service, you need to create a registration yaml file, such as `alertmanager.yaml` that's accessible locally to your matrix homeserver (such as synapse), and it should have the following contents:
