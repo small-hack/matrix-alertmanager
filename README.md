@@ -30,6 +30,45 @@ A bot to receive Prometheus Alertmanager webhook events and forward them to chos
 
 We host a docker image that builds nightly here: [jessebot/matrix-alertmanager-bot](https://hub.docker.com/repository/docker/jessebot/matrix-alertmanager-bot). Checkout out [`.env.default`](./.env.default) for the possible env vars to pass in.
 
+## Registering the Application Service with matrix
+Matrix has a concept of [application services](https://spec.matrix.org/v1.11/application-service-api/) (often called an appservice), for bot services/users. To register this bot as an application service, you need to create a registration yaml file, such as `alertmanager.yaml` that's accessible locally to your matrix homeserver (such as synapse), and it should have the following contents:
+
+```yaml
+# A unique, user-defined ID of the application service which will never change.
+id: alertmanager
+# The URL for the application service. May include a path after the domain name.
+# Optionally set to null if no traffic is required.
+# this is an example but it can be whatever URL and port you host this bot at
+url: http://matrix-stack-bridge-alertmanager:3000
+#  Whether requests from masqueraded users are rate-limited. The sender is excluded.
+rate_limited: false
+# The localpart of the user associated with the application service.
+# Events will be sent to the AS if this user is the target of the event, or is a
+# joined member of the room where the event occurred.
+sender_localpart: alertmanager
+# A secret token that the application service will use to authenticate requests to the homeserver.
+as_token: "soemthingverysecurebutdefinitelynotthisexactstringuseyourbestjudgementwitharandomgenerator"
+# A secret token that the homeserver will use authenticate requests to the application service.
+hs_token: "soemthingelseverysecurebutdefinitelynotthisexactstringuseyourbestjudgementwitharandomgenerator"
+# The namespaces that the application service is interested in.
+# https://spec.matrix.org/v1.11/application-service-api/#definition-registration_namespaces
+namespaces:
+  # https://spec.matrix.org/v1.11/application-service-api/#definition-registration_namespace
+  users:
+    - exclusive: true
+      regex: "^@alertmanager.*:mymatrix.server.tld$"
+    - exclusive: true
+      regex: "^@:mymatrix.server.tld$"
+```
+
+Then, in your `homeserver.yaml`, you need to include reference to the above registration yaml file, so for example, if you saved that file to `/bridges/alertmanager.yaml`, you'd add the following to your homeserver config:
+
+```yaml
+# A list of application service config files to use
+app_service_config_files:
+  - "/bridges/alertmanager.yaml"
+```
+
 ## Setting up Alertmanager
 
 You will need to configure a webhook receiver in Alertmanager. It should looks something like this:
