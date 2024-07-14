@@ -35,6 +35,16 @@ const client = {
                 await this.ensureInRoom(room[1])
             }
         })
+
+        // ensure display name is updated
+        if (process.env.MATRIX_DISPLAY_NAME) {
+            this.connection.setDisplayName(process.env.MATRIX_DISPLAY_NAME);
+        }
+
+        // ensure avatar is updated
+        if (process.env.MATRIX_AVATAR_URL) {
+            this.connection.setAvatarUrl(process.env.MATRIX_AVATAR_URL);
+        }
     },
     sendAlert: async function(roomId, alert) {
         await this.ensureInRoom(roomId)
