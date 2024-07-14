@@ -63,7 +63,101 @@ NOTE! Currently the bot cannot talk HTTPS, so you need to have a reverse proxy i
 
 ## Running in Kubernetes
 
-[small-hack/matrix-chart](https://github.com/small-hack/matrix-chart) is a matrix stack for Kubernetes that includes this bot.
+[small-hack/matrix-chart](https://github.com/small-hack/matrix-chart) is a matrix stack for Kubernetes that includes this bot. In your values.yaml include:
+
+```yaml
+bridges:
+  alertmanager:
+    enabled: true
+    image:
+      # -- alertmanager bridge docker image
+      repository: "jessebot/matrix-alertmanager-bot"
+      # -- alertmanager bridge docker image tag
+      tag: "0.11.0"
+      # -- alertmanager bridge docker image pull policy. If tag is "latest", set tag to "Always"
+      pullPolicy: IfNotPresent
+
+    service:
+      # -- service type for the alertmanager bridge
+      type: ClusterIP
+
+    # -- alertmanager bridge pod replicas
+    replicaCount: 1
+
+    # -- set the revisionHistoryLimit to decide how many replicaSets are
+    # kept when you change a deployment. Explicitly setting this field to 0,
+    # will result in cleaning up all the history of your Deployment thus that
+    # Deployment will not be able to roll back.
+    revisionHistoryLimit: 2
+
+    existingSecret:
+      registration: ""
+
+    # this section is for registering the application service with matrix
+    # read more about application services here:
+    # https://spec.matrix.org/v1.11/application-service-api/
+    registration:
+      # -- name of the application service
+      id: "alertmanager"
+      # -- url of the alertmanager service. if not provided, we will template it
+      # for you like http://matrix-alertmanager-service:3000
+      url: ""
+      # -- should this bot be rate limited?
+      rate_limited: false
+      # -- localpart of the user associated with the application service.
+      # Events will be sent to the AS if this user is the target of the event,
+      # or is a joined member of the room where the event occurred.
+      sender_localpart: "alertmanager"
+      # A secret token that the application service will use to authenticate
+      # requests to the homeserver.
+      as_token: ""
+      # -- Use an existing Kubernetes Secret to store your own generated appservice
+      # and homeserver tokens. If this is not set, we'll generate them for you.
+      # Setting this won't override the ENTIRE registration.yaml we generate for
+      # the synapse pod to authenticate mautrix/discord. It will only replaces the tokens.
+      # To replaces the ENTIRE registration.yaml, use
+      # bridges.alertmanager.existingSecret.registration
+      existingSecret: ""
+      existingSecretKeys:
+        # -- key in existingSecret for as_token (application service token). If
+        # provided and existingSecret is set, ignores bridges.alertmanager.registration.as_token
+        as_token: "as_token"
+        # -- key in existingSecret for hs_token (home server token)
+        hs_token: "hs_token"
+
+    encryption: false
+
+    config:
+      # -- appservice port?
+      app_port: 3000
+      # -- secret key for the webhook events, I don't know what this is
+      app_alertmanager_secret: ""
+      # -- your homeserver url, e.g. https://homeserver.tld
+      homeserver_url: ""
+
+      bot:
+        # -- user in matrix for the the alertmanager bot e.g. alertmanager
+        # which becomes @alertmanager:homeserver.tld
+        user: ""
+        # -- optional: display name to set for the bot user
+        display_name: ""
+        # -- optional: mxc:// avatar to set for the bot user
+        avatar_url: ""
+        # -- rooms to send alerts to, separated by a |
+        # Each entry contains the receiver name (from alertmanager) and the
+        # internal id (not the public alias) of the Matrix channel to forward to.
+        rooms: ""
+        # -- Set this to true to make firing alerts do a `@room` mention.
+        # NOTE! Bot should also have enough power in the room for this to be useful.
+        mention_room: false
+
+      # -- set to enable Grafana links, e.g. https://grafana.example.com
+      grafana_url: ""
+      # -- grafana data source, e.g. default
+      grafana_datasource: ""
+      # -- set to enable silence link, e.g. https://alertmanager.example.com
+      alertmanager_url: ""
+```
 
 ## TODO
 
