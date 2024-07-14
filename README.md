@@ -16,12 +16,13 @@ A bot to receive Prometheus Alertmanager webhook events and forward them to chos
 ### Main features
 
 * Uses pre-created Matrix user to send alerts using token auth
-  * you can also use an appserver to register a new user
+  * you can also use an [application service](https://spec.matrix.org/v1.11/application-service-api/) to register a new user
 * Configurable room per alert receiver
 * Automatic joining of configured rooms. Private rooms require an invite
 * Secret key authentication with Alertmanager
 * HTML formatted messages
 * Optionally mentions `@room` on firing alerts
+* Optionally set the bot user's display name and avatar
 
 # How to use
 
