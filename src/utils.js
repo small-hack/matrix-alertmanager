@@ -45,37 +45,42 @@ const utils = {
 		        if (process.env.COLOR_CRITICAL) {
 			    return process.env.COLOR_CRITICAL;
 			} else {
-                            return '#E41227'; // red
+                            return '#ff8d87'; // red
 			}
                     case 'error':
 		        if (process.env.COLOR_ERROR) {
 			    return process.env.COLOR_ERROR;
 			} else {
-                            return '#FF4507'; // orange
+                            return '#f289f9'; // magenta
 			}
                     case 'warning':
 		        if (process.env.COLOR_WARNING) {
 			    return process.env.COLOR_WARNING;
 			} else {
-                            return '#FFE608'; // yellow
+                            return '#f7fb53'; // yellow
 			}
                     case 'info':
 		        if (process.env.COLOR_INFO) {
 			    return process.env.COLOR_INFO;
 			} else {
-                            return '#1661B8'; // blue
+                            return '#7aa2f7'; // blue
 			}
                     default:
 		        if (process.env.COLOR_DEFAULT) {
 			    return process.env.COLOR_DEFAULT;
 			} else {
-                            return '#999999'; // grey
+                            return '#585858'; // grey
 			}
                 }
             })(data.labels.severity);
-            parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + env + '</font></strong></summary>')
+            parts.push('<summary><strong><font color=\"' + color + '\">FIRING</strong>: ' + summary + env + '</font></summary>')
         } else if (data.status === 'resolved') {
-            parts.push('<summary><strong><font color=\"#33CC33\">RESOLVED: ' + summary + env + '</font></strong></summary>')
+	    if (process.env.COLOR_RECOVERED) {
+		let resolved_color = process.env.COLOR_RECOVERED
+	    } else {
+		let resolved_color = "#a8fd57"
+	    }
+            parts.push('<summary><strong><font color=\"' + resolved_color + '\">RESOLVED</strong>: ' + summary + env + '</font></summary>')
         } else {
             parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + env + '</summary>')
         }
