@@ -25,8 +25,8 @@ const utils = {
         let parts = []
 
         let summary = ""
-        if (data.annotations.hasOwnProperty("summary")) {
-            summary = data.annotations.summary;
+        if (data.annotations.hasOwnProperty("description")) {
+            summary = data.annotations.description.split('.')[0];
         } else if (data.labels.hasOwnProperty("alertname")) {
             summary = data.labels.alertname;
         }
@@ -42,15 +42,35 @@ const utils = {
             let color = (function (severity) {
                 switch (severity) {
                     case 'critical':
-                        return '#E41227'; // red
+		        if (process.env.COLOR_CRITICAL) {
+			    return process.env.COLOR_CRITICAL;
+			} else {
+                            return '#E41227'; // red
+			}
                     case 'error':
-                        return '#FF4507'; // orange
+		        if (process.env.COLOR_ERROR) {
+			    return process.env.COLOR_ERROR;
+			} else {
+                            return '#FF4507'; // orange
+			}
                     case 'warning':
-                        return '#FFE608'; // yellow
+		        if (process.env.COLOR_WARNING) {
+			    return process.env.COLOR_WARNING;
+			} else {
+                            return '#FFE608'; // yellow
+			}
                     case 'info':
-                        return '#1661B8'; // blue
+		        if (process.env.COLOR_INFO) {
+			    return process.env.COLOR_INFO;
+			} else {
+                            return '#1661B8'; // blue
+			}
                     default:
-                        return '#999999'; // grey
+		        if (process.env.COLOR_DEFAULT) {
+			    return process.env.COLOR_DEFAULT;
+			} else {
+                            return '#999999'; // grey
+			}
                 }
             })(data.labels.severity);
             parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + env + '</font></strong></summary>')
