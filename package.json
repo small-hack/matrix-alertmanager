@@ -1,6 +1,6 @@
 {
   "name": "matrix-alertmanager",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Prometheus Alertmanager bot for Matrix",
   "main": "src/app.js",
   "scripts": {
@@ -23,6 +23,13 @@
     "node": ">= 22"
   },
   "author": "Jason Robinson",
+  "contributors": [
+        {
+            "name": "Jesse Hitch",
+            "email": "jessebot@linux.com",
+            "url": "https://jessebot.work/"
+        }
+    ],
   "license": "MIT",
   "devDependencies": {
     "chai": "^5.0.0",
