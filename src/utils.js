@@ -45,7 +45,7 @@ const utils = {
 		        if (process.env.COLOR_CRITICAL) {
 			    return process.env.COLOR_CRITICAL;
 			} else {
-                            return '#ff8d87'; // red
+                            return '#f2748a'; // red
 			}
                     case 'error':
 		        if (process.env.COLOR_ERROR) {
@@ -57,7 +57,7 @@ const utils = {
 		        if (process.env.COLOR_WARNING) {
 			    return process.env.COLOR_WARNING;
 			} else {
-                            return '#f7fb53'; // yellow
+                            return '#fdcd36'; // yellow
 			}
                     case 'info':
 		        if (process.env.COLOR_INFO) {
@@ -69,7 +69,7 @@ const utils = {
 		        if (process.env.COLOR_DEFAULT) {
 			    return process.env.COLOR_DEFAULT;
 			} else {
-                            return '#585858'; // grey
+                            return '#7aa2f7'; // grey
 			}
                 }
             })(data.labels.severity);
@@ -80,7 +80,7 @@ const utils = {
 	    } else {
 		let resolved_color = "#a8fd57"
 	    }
-            parts.push('<summary><strong><font color=\"' + resolved_color + '\">RESOLVED</strong>: ' + summary + env + '</font></summary>')
+            parts.push('<summary><strong><font color=\"' + resolved_color + '\">RESOLVED</strong>: ' summary + env + '</font></summary>')
         } else {
             parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + env + '</summary>')
         }
@@ -88,7 +88,7 @@ const utils = {
         parts.push('<br />\n')
 
         Object.keys(data.labels).forEach((label) => {
-            parts.push('<b>' + label + '</b>: ' + data.labels[label] + '<br>\n')
+            parts.push('<b><font color=\"#bdd8ff\">' + label + '</font></b>: ' + data.labels[label] + '<br>\n')
         });
 
         parts.push('<br />\n')
