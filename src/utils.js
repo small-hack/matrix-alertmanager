@@ -89,7 +89,7 @@ const utils = {
         parts.push('<br />\n')
 
         Object.keys(data.annotations).forEach((annotation) => {
-            if (annotation != "summary" && !annotation.startsWith("logs_")) {
+            if (annotation != "summary" && annotation != "runbook_url" && !annotation.startsWith("logs_")) {
                 parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>\n')
             }
         })
