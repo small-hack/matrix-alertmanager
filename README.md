@@ -21,7 +21,7 @@ A bot to receive Prometheus Alertmanager webhook events and forward them to chos
 * Automatic joining of configured rooms. Private rooms require an invite
 * Secret key authentication with Alertmanager
 * 🎨 HTML formatted messages
-  * You can now choose the colors for severity too!
+  * You can now choose the text colors for each severity too!
 * Optionally mentions `@room` on firing alerts
 * Optionally set the bot user's display name and avatar
 
