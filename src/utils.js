@@ -25,8 +25,8 @@ const utils = {
         let parts = []
 
         let summary = ""
-        if (data.annotations.hasOwnProperty("summary")) {
-            summary = data.annotations.summary;
+        if (data.annotations.hasOwnProperty("description")) {
+            summary = data.annotations.description.split('.')[0];
         } else if (data.labels.hasOwnProperty("alertname")) {
             summary = data.labels.alertname;
         }
@@ -42,20 +42,45 @@ const utils = {
             let color = (function (severity) {
                 switch (severity) {
                     case 'critical':
-                        return '#E41227'; // red
+		        if (process.env.COLOR_CRITICAL) {
+			    return process.env.COLOR_CRITICAL;
+			} else {
+                            return '#f2748a'; // red
+			}
                     case 'error':
-                        return '#FF4507'; // orange
+		        if (process.env.COLOR_ERROR) {
+			    return process.env.COLOR_ERROR;
+			} else {
+                            return '#f289f9'; // magenta
+			}
                     case 'warning':
-                        return '#FFE608'; // yellow
+		        if (process.env.COLOR_WARNING) {
+			    return process.env.COLOR_WARNING;
+			} else {
+                            return '#fdcd36'; // yellow
+			}
                     case 'info':
-                        return '#1661B8'; // blue
+		        if (process.env.COLOR_INFO) {
+			    return process.env.COLOR_INFO;
+			} else {
+                            return '#7aa2f7'; // blue
+			}
                     default:
-                        return '#999999'; // grey
+		        if (process.env.COLOR_DEFAULT) {
+			    return process.env.COLOR_DEFAULT;
+			} else {
+                            return '#7aa2f7'; // grey
+			}
                 }
             })(data.labels.severity);
-            parts.push('<summary><strong><font color=\"' + color + '\">FIRING: ' + summary + env + '</font></strong></summary>')
+            parts.push('<summary><font color=\"' + color + '\"><b>FIRING</b>: ' + summary + env + '</font></summary>')
         } else if (data.status === 'resolved') {
-            parts.push('<summary><strong><font color=\"#33CC33\">RESOLVED: ' + summary + env + '</font></strong></summary>')
+	    if (process.env.COLOR_RECOVERED) {
+		let resolved_color = process.env.COLOR_RECOVERED
+	    } else {
+		let resolved_color = "#a8fd57"
+	    }
+            parts.push('<summary><font color=\"' + resolved_color + '\"><b>RESOLVED</b>: ' + summary + env + '</font></summary>')
         } else {
             parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + env + '</summary>')
         }
@@ -63,14 +88,14 @@ const utils = {
         parts.push('<br />\n')
 
         Object.keys(data.labels).forEach((label) => {
-            parts.push('<b>' + label + '</b>: ' + data.labels[label] + '<br>\n')
+            parts.push('<font color=\"#bdd8ff\"><b>' + label + '</b></font>: ' + data.labels[label] + '<br>\n')
         });
 
         parts.push('<br />\n')
 
         Object.keys(data.annotations).forEach((annotation) => {
-            if (annotation != "summary" && !annotation.startsWith("logs_")) {
-                parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>\n')
+            if (annotation != "summary" && annotation != "runbook_url" && !annotation.startsWith("logs_")) {
+                parts.push('<font color=\"#bdd8ff\"><b>' + annotation + '</b></font>: ' + data.annotations[annotation] + '<br>\n')
             }
         })
         parts.push('</details>')
