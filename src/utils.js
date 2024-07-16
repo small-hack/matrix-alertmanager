@@ -73,14 +73,14 @@ const utils = {
 			}
                 }
             })(data.labels.severity);
-            parts.push('<summary><strong><font color=\"' + color + '\">FIRING</strong>: ' + summary + env + '</font></summary>')
+            parts.push('<summary><font color=\"' + color + '\"><b>FIRING</b>: ' + summary + env + '</font></summary>')
         } else if (data.status === 'resolved') {
 	    if (process.env.COLOR_RECOVERED) {
 		let resolved_color = process.env.COLOR_RECOVERED
 	    } else {
 		let resolved_color = "#a8fd57"
 	    }
-            parts.push('<summary><strong><font color=\"' + resolved_color + '\">RESOLVED</strong>: ' + summary + env + '</font></summary>')
+            parts.push('<summary><font color=\"' + resolved_color + '\"><b>RESOLVED</b>: ' summary + env + '</font></summary>')
         } else {
             parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + env + '</summary>')
         }
@@ -88,14 +88,14 @@ const utils = {
         parts.push('<br />\n')
 
         Object.keys(data.labels).forEach((label) => {
-            parts.push('<b><font color=\"#bdd8ff\">' + label + '</font></b>: ' + data.labels[label] + '<br>\n')
+            parts.push('<font color=\"#bdd8ff\"><b>' + label + '</b></font>: ' + data.labels[label] + '<br>\n')
         });
 
         parts.push('<br />\n')
 
         Object.keys(data.annotations).forEach((annotation) => {
             if (annotation != "summary" && annotation != "runbook_url" && !annotation.startsWith("logs_")) {
-                parts.push('<b>' + annotation + '</b>: ' + data.annotations[annotation] + '<br>\n')
+                parts.push('<font color=\"#bdd8ff\"><b>' + annotation + '</b></font>: ' + data.annotations[annotation] + '<br>\n')
             }
         })
         parts.push('</details>')
