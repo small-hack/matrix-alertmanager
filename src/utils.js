@@ -80,7 +80,7 @@ const utils = {
 	    } else {
 		let resolved_color = "#a8fd57"
 	    }
-            parts.push('<summary><font color=\"' + resolved_color + '\"><b>RESOLVED</b>: ' summary + env + '</font></summary>')
+            parts.push('<summary><font color=\"' + resolved_color + '\"><b>RESOLVED</b>: ' + summary + env + '</font></summary>')
         } else {
             parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + env + '</summary>')
         }
