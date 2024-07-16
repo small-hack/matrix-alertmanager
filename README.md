@@ -3,13 +3,12 @@
 # Matrix-Alertmanager
 
 A bot to receive Prometheus Alertmanager webhook events and forward them to chosen matrix rooms.
-
-<img width="705" alt="Screenshot of matrix markdown formatted alertmanager bot with collapsed short description of alert" src="https://github.com/user-attachments/assets/b2f96f63-f89e-4953-a572-7541a1cf6f19">
+<img width="673" alt="Screenshot of matrix markdown formatted alertmanager bot with collapsed short description of alert" src="https://github.com/user-attachments/assets/866dbe3d-70ad-4970-98c4-ba902e2c3dfc">
 
 <details>
   <summary>Click me to see what the alerts look like when they're not collapsed</summary>
 
-<img width="701" alt="Screenshot of matrix markdown formatted alertmanager bot with expanded info on each alert" src="https://github.com/user-attachments/assets/7cc008a6-1309-4df9-96e8-66f07e179f20">
+<img width="693" alt="Screenshot of matrix markdown formatted alertmanager bot with expanded info on each alert" src="https://github.com/user-attachments/assets/e3e1ab9e-fd34-40e8-ac9f-528f09af76bb">
 
 </details>
 
@@ -198,10 +197,6 @@ bridges:
       # -- set to enable silence link, e.g. https://alertmanager.example.com
       alertmanager_url: ""
 ```
-
-## TODO
-
-* Registering an account instead of having to use an existing account
 
 ## Tech
 
