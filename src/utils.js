@@ -74,12 +74,15 @@ const utils = {
                 }
             })(data.labels.severity);
             parts.push('<summary><font color=\"' + color + '\"><b>FIRING</b>: ' + summary + env + '</font></summary>')
+
         } else if (data.status === 'resolved') {
+
+            // determine best logging color for resolved alerts
+	    let resolved_color = "#a8fd57";
 	    if (process.env.COLOR_RECOVERED) {
-		let resolved_color = process.env.COLOR_RECOVERED
-	    } else {
-		let resolved_color = "#a8fd57"
-	    }
+		let resolved_color = process.env.COLOR_RECOVERED;
+	    };
+
             parts.push('<summary><font color=\"' + resolved_color + '\"><b>RESOLVED</b>: ' + summary + env + '</font></summary>')
         } else {
             parts.push('<summary>' + data.status.toUpperCase() + ': ' + summary + env + '</summary>')
