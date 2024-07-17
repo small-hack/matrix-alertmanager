@@ -76,9 +76,9 @@ const utils = {
             parts.push('<summary><font color=\"' + color + '\"><b>FIRING</b>: ' + summary + env + '</font></summary>')
         } else if (data.status === 'resolved') {
 	    if (process.env.COLOR_RECOVERED) {
-		let resolved_color = process.env.COLOR_RECOVERED
+		let resolved_color = process.env.COLOR_RECOVERED;
 	    } else {
-		let resolved_color = "#a8fd57"
+		let resolved_color = "#a8fd57";
 	    }
             parts.push('<summary><font color=\"' + resolved_color + '\"><b>RESOLVED</b>: ' + summary + env + '</font></summary>')
         } else {
