@@ -74,16 +74,14 @@ const utils = {
                 }
             })(data.labels.severity);
             parts.push('<summary><font color=\"' + color + '\"><b>FIRING</b>: ' + summary + env + '</font></summary>')
+
         } else if (data.status === 'resolved') {
 
             // determine best logging color for resolved alerts
 	    let resolved_color = "#a8fd57";
 	    if (process.env.COLOR_RECOVERED) {
-                console.log("COLOR_RECOVERED env contains something for resolved color");
 		let resolved_color = process.env.COLOR_RECOVERED;
 	    };
-            console.log("color process.env.COLOR_RECOVERED is");
-            console.log(resolved_color);
 
             parts.push('<summary><font color=\"' + resolved_color + '\"><b>RESOLVED</b>: ' + summary + env + '</font></summary>')
         } else {
