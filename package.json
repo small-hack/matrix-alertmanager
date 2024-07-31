@@ -36,7 +36,7 @@
     "eslint": "^9.0.0",
     "mocha": "^10.0.0",
     "nodemon": "^3.0.0",
-    "npm-check-updates": "^16.14.20",
+    "npm-check-updates": "^17.0.0",
     "sinon": "^18.0.0"
   },
   "dependencies": {
